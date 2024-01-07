@@ -14,7 +14,7 @@ pipeline {
     stage('Publish') {
       steps {
         script {
-          docker.withRegistry('','dockerhub_id'){
+          docker.withRegistry('','dockerhub_user_pass'){
             docker.image("{$registry}):${env.Build_ID}").push ('latest')
             docker.image("${registry}:${env.BUILD_ID}").push("${env.BUILD_ID}")
           }
