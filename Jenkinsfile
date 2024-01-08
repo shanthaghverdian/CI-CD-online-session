@@ -73,7 +73,7 @@ stage('Check Code Quality'){
                     reportTitles: 'Trivy Scan'
                 ]
        
-
+  sh "trivy image --ignore-unfixed --exit-code 1 --severity CRITICAL --no-progress ${registry}:${env.BUILD_ID}"
         }
       }
     }
