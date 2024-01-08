@@ -1,3 +1,6 @@
+pipeline {
+  agent any
+  stages {
 stage('Check Code Quality'){
       steps{
         script{
@@ -23,9 +26,7 @@ stage('Check Code Quality'){
       }
     }
 
-pipeline {
-  agent any
-  stages {
+
     stage('Build') {
       steps {
         script {
