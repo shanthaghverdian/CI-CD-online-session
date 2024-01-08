@@ -61,7 +61,7 @@ stage('Check Code Quality'){
         script {
           sh 'mkdir -p reports'
           sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl > html.tpl'
-          def vulnerabilities = sh(script: "trivy image  --exit-code 0 --ignore-unfixed --severity CRITICAL --format template --template '@html.tpl' -o reports/image-scan.html --no-progress ${registry}:${env.BUILD_ID}", returnStdout: true).trim()
+          def vulnerabilities = sh(script: "trivy image  --exit-code 0 --ignore-unfixed --severity CRITICAL,HIGH,MEDIUM,LOW --format template --template '@html.tpl' -o reports/image-scan.html --no-progress ${registry}:${env.BUILD_ID}", returnStdout: true).trim()
           echo "Vulnerability Report:\n${vulnerabilities}"
           publishHTML target : [
                     allowMissing: true,
@@ -73,7 +73,7 @@ stage('Check Code Quality'){
                     reportTitles: 'Trivy Scan'
                 ]
        
-  sh "trivy image --ignore-unfixed --exit-code 1 --severity CRITICAL --no-progress ${registry}:${env.BUILD_ID}"
+  sh "trivy image --ignore-unfixed --exit-code 1 --no-progress ${registry}:${env.BUILD_ID}"
         }
       }
     }
