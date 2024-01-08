@@ -11,7 +11,7 @@ pipeline {
       }
     }
 
-    stage(''unit-test) {
+    stage('unit-test') {
    steps {
      script {
 	   docker.image("${registry}":${env.Build_ID}").inside{
